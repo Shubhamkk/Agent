@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 export default function BetlistLive() {
     return (
@@ -33,105 +35,27 @@ export default function BetlistLive() {
             <li id="eventType_checkBox">
                 <input type="checkbox" name="" id="events_all" value="0"/>All
                 
+                <input type="checkbox" name="events" id="events_4" value="4"/>
+                    Cricket
                 
                 
                     <input type="checkbox" name="events" id="events_1" value="1"/>
                     Soccer
                 
 
-                
-
-                
-                
-
-                
-                    <input type="checkbox" name="SOCCER_ow" id="SOCCER_ow" value="true"/>
-                    S/B Soccer
-                
-                
-                            <input type="checkbox" name="SOCCER_BOOK" id="SOCCER_BOOK" value="1"/>
-                            BOOK Soccer
-                
-                
-                
                     <input type="checkbox" name="events" id="events_2" value="2"/>
                     Tennis
                 
 
                 
-
-                
-                
-
-                
-                    <input type="checkbox" name="TENNIS_ow" id="TENNIS_ow" value="true"/>
-                    S/B Tennis
-                
-                
-                
-                
                     <input type="checkbox" name="events" id="events_4" value="4"/>
                     Cricket
                 
 
-                
-                    <input type="checkbox" name="CRICKET_fancy" id="CRICKET_fancy" value="true"/>
-                    Cricket/Fancy Bet
-                
-
-                
-                
-                    <input type="checkbox" name="CRICKET_sportsbook" id="CRICKET_sportsbook" value="true"/>
-                    S/R Cricket
-                
-
-                
-                    <input type="checkbox" name="CRICKET_ow" id="CRICKET_ow" value="true"/>
-                    S/B Cricket
-                
-                
-                            <input type="checkbox" name="CRICKET_BOOK" id="CRICKET_BOOK" value="4"/>
-                            BOOK Cricket
-                
-                
-                
-
-                
-                    <input type="checkbox" name="ELECTION_fancy" id="ELECTION_fancy" value="true"/>
-                    Election/Fancy Bet
-                
-
-                
-                
-
-                
-                
-                
-                
-                    <input type="checkbox" name="events" id="events_9999999" value="9999999"/>
-                    FancyBet
-                
-
-                
-
-                
-                
-
-                
-                
-                
-                
                     <input type="checkbox" name="events" id="events_2378961" value="2378961"/>
                     Politics
                 
 
-                
-
-                
-                
-
-                
-                
                 <input type="checkbox" id="TS_BINARY" name="TS_BINARY" value="6"/>BINARY
             </li>
         </ul>
@@ -151,11 +75,7 @@ export default function BetlistLive() {
             <option value="stake" selected="">
                 Stake
             </option>
-            
-            <option value="userid">
-                Player ID
-            </option>
-            
+             
             <option value="createdate">
                 Time
             </option>
@@ -201,7 +121,7 @@ export default function BetlistLive() {
 
     <li>
         <label>Bet Status:</label>
-        <select name="betStatus" id="betStatus"><option value="all">All</option><option value="0">Unmatched</option><option value="1">Matched</option></select>
+        <select name="betStatus" id="betStatus"><option value="all">All</option><option value="1">Matched</option><option value="1">M</option></select>
     </li>
     <li>&nbsp;&nbsp;</li>
 

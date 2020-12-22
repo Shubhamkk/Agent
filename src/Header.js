@@ -7,14 +7,12 @@ const cookies = new Cookies();
 
 export default function Header(props) {
 	
-
-	
    
 
-    return (
-        <React.Fragment>
-            <div class="top">
-  <div class="header">
+return (
+<React.Fragment>
+  <div class="top">
+   <div class="header">
     <h1><a href="">SKYEXCHANGE</a></h1>
 
     <ul class="account-wrap">

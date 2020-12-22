@@ -2,6 +2,7 @@ import React from 'react'
 import { Link} from "react-router-dom";
 
 export default function Profile() {
+
     return (
         <React.Fragment>
             <div class="main_wrap">
@@ -79,8 +80,8 @@ export default function Profile() {
             <li><Link to="/myAccount/activityLog" id="activityLog" >Activity Log</Link></li>
             
         </ul>
-    </div>
-</div>
+     </div>
+   </div>
 
 
     {/* <!-- Center Column --> */}
