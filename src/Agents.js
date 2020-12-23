@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Transparent from './images/transparent.gif'
+// import Transparent from './images/transparent.gif'
 import Addmember from './Addmember';
 import AddSuper from './AddSuper';
 import BankingModel from './BankingModel';

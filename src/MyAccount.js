@@ -1,7 +1,31 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
+import Cookies from 'universal-cookie';
+import Loading from './images/loading40.gif'
+import axios from 'axios';
 import { Link} from "react-router-dom";
 
-export default function MyAccount() {
+
+const cookies = new Cookies();
+
+export default function MyAccount(props) {
+
+	const [accountSummary, setaccountSummary] = useState([])
+
+    useEffect(() => {
+        var ssid = cookies.get('sid');
+        if(!ssid) return;
+        axios.post('http://65.0.111.203:3000/myAccountSummary',{
+            sid:ssid
+           }).then(result => {
+            setaccountSummary(result.data.balance)
+           // console.log(result.data.balance); 
+     }
+     
+   ).catch(e => {
+     //setIsError(true);
+   });
+           
+    }, [])
     return (
         <React.Fragment>
             <div class="main_wrap">
@@ -14,9 +38,9 @@ export default function MyAccount() {
                 </span> <strong></strong> </a>
 			</li>
 			<li id="path5" class="last_li" >
-				<a href="javascript: void(0);"> <span class="lv_1">
-                    SS
-                </span> <strong>dublinhkd043</strong> </a>
+			<Link to="/agents"> <span class="lv_1">
+				{props.level}
+                </span> <strong>{props.user}</strong> </Link>
 			</li>
 			<li id="path4" class="" style={{display:'none'}}>
 				<a href="javascript: void(0);"> <span class="lv_2">
@@ -60,7 +84,7 @@ export default function MyAccount() {
 	{/* <!-- Loading Wrap --> */}
 	<div id="loading" class="loading-wrap" style={{display:'none'}}>
 		<ul class="loading">
-			<li><img src="/images/loading40.gif"/></li>
+			<li><img src={Loading}/></li>
 			<li>Loading...</li>
 		</ul>
 	</div>
@@ -74,7 +98,7 @@ export default function MyAccount() {
 		<h2>Account Summary</h2>
 		<div class="white-wrap">
 			<dl class="head-balance"> <dt>Your Balances</dt>
-				<dd id="yourBalance">4,401.98 <span>PTH</span></dd>
+				<dd id="yourBalance">{accountSummary} <span>PTH</span></dd>
 			</dl>
 		</div>
 	</div>

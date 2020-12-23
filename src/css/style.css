@@ -696,7 +696,8 @@ table .btn,table .btn-send,table .marquee-pop .pages a,.marquee-pop .pages table
 .duoexch .header h1{
     width:158px;
     height:53px;
-    background:url(../images/duoexch/logo-duoexch.png) no-repeat
+    background:url(../images/duo-logo.gif) no-repeat;
+    background-size: contain;
 }
 /* .goexchange .header h1{
     width:106px;
@@ -5257,18 +5258,17 @@ table .expand-close,table .expand-open{
 .add_member{
     height:30px;
     margin:0;
-    line-height:0px;
+    line-height:30px;
     padding:0 15px
 }
 .add_member img{
     margin-right:5px;
-    margin-top:5px;
-    background-position:-32px -30px;
+    background-position:-32px -32px;
     height:15px;
     width:26px
 }
 .add_member img:hover,.add_member img.add_member-hover{
-    background-position:-32px -15px
+    background-position:-32px -32px
 }
 .acc-info .status_all{
     padding-left:0
@@ -6596,7 +6596,8 @@ th+.full-amount{
 }
 .match-wrap td{
     padding:4px 10px;
-    line-height:25px
+    line-height:25px;
+    border:1px solid #7E97A7
 }
 .match-wrap .border-t td{
     box-shadow:none
@@ -6632,6 +6633,9 @@ th+.full-amount{
     position:relative;
     width:25px;
     margin-right:10px
+}
+.open-odds:before{
+    background-image: url('../images/right-arrow.png');
 }
 .open-odds:before,.close-odds:before{
     position:absolute;
@@ -19683,3 +19687,17 @@ body.sportsexchlive{
 }
 
 
+
+
+
+.duoexch .pages li.active a.undefined{
+    color: #F8D61C;
+    background: #444 url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/2wCEAAEBAQEBAQIBAQIDAgICAwQDAwMDBAUEBAQEBAUGBQUFBQUFBgYGBgYGBgYHBwcHBwcICAgICAkJCQkJCQkJCQkBAQEBAgICBAICBAkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCf/AABEIABIABQMBIgACEQEDEQH/xABSAAEBAQAAAAAAAAAAAAAAAAAABAkQAQABBQAAAAAAAAAAAAAAAAABBBVSodEBAQAAAAAAAAAAAAAAAAAAAAARAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AMEbbRYbnouAAAf/2Q==') repeat-x;
+    border-color: #222;
+}
+
+.pages li.disabled a{
+    background: #dfdfdf;
+    color: #999;
+    cursor: not-allowed;
+}

@@ -1,7 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+// import Transparent from "../images/transparent.gif";
+import Loading from './images/loading40.gif'
+import Cookies from 'universal-cookie';
 import { Link} from "react-router-dom";
 
-export default function Profile() {
+
+const cookies = new Cookies();
+export default function Profile(props) {
+    const [firstname, setfirstname] = useState("");
+    const [lastname, setlastname] = useState("");
+  
+    useEffect(() => {
+        var ssid = cookies.get('sid');
+        if(!ssid) return;
+      axios.post("http://65.0.111.203:3000/myProfile", {
+          sid:ssid
+        })
+        .then((result) => {
+         
+             console.log(result);
+            setfirstname(result.data[0].first_name);
+            setlastname(result.data[0].last_name);
+        })
+        .catch((e) => {
+          //setIsError(true);
+        });
+    }, []);
+
+
     return (
         <React.Fragment>
             <div class="main_wrap">
@@ -19,12 +46,12 @@ export default function Profile() {
         </li>
         
         <li id="path5" class="last_li" >
-            <a href="javascript: void(0);">
+        <Link to="/agents">
                 <span class="lv_1">
-                    SS
+                {props.level}
                 </span>
-                <strong>dublinhkd043</strong>
-            </a>
+                <strong>{props.user}</strong>
+            </Link>
         </li>
         
         <li id="path4" class="" style={{display:'none'}}>
@@ -90,7 +117,7 @@ export default function Profile() {
 {/* <!-- Loading Wrap --> */}
 <div id="loading" class="loading-wrap" style={{display:'none'}}>
   <ul class="loading">
-    <li><img src="/images/loading40.gif"/></li>
+    <li><img src={Loading}/></li>
     <li>Loading...</li>
   </ul>
 </div>
@@ -110,10 +137,10 @@ export default function Profile() {
                 <h3>About You</h3>
                 <dl>
                     <dt>First Name</dt>
-                    <dd></dd>
+                    <dd>{firstname}</dd>
 
                     <dt>Last Name</dt>
-                    <dd></dd>
+                    <dd>{lastname}</dd>
 
                     <dt>Birthday</dt>
                     <dd></dd>
@@ -123,7 +150,7 @@ export default function Profile() {
 
                     <dt>Password</dt>
                     <dd>********************************
-                        <a  class="favor-set" onclick="ChangePasswordHandler.showDialog()">Edit</a>
+                        <a  class="favor-set" onClick={()=>{props.handlepassmodel()}}>Edit</a>
                     </dd>
 
                     <dt>Time Zone</dt>

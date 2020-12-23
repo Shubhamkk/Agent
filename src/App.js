@@ -15,6 +15,7 @@ import Profile from './Profile'
 import Transfrredlog from './Transfrredlog'
 import ActivityLog from './ActivityLog'
 import Combine from './Combine'
+import RunningFullmarket from './RunningFullmarket'
 
 
 
