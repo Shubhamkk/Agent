@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link} from "react-router-dom";
-
-export default function Transfrredlog() {
+import Loading from './images/loading40.gif'
+export default function Transfrredlog(props) {
     return (
         <React.Fragment>
             <div class="main_wrap">
@@ -19,12 +19,12 @@ export default function Transfrredlog() {
         </li>
         
         <li id="path5" class="last_li" >
-            <a href="javascript: void(0);">
+        <Link to="/agents">
                 <span class="lv_1">
-                    SS
+                    {props.level}
                 </span>
-                <strong>dublinhkd043</strong>
-            </a>
+                <strong>{props.user}</strong>
+            </Link>
         </li>
         
         <li id="path4" class="" style={{display:'none'}}>
@@ -85,7 +85,7 @@ export default function Transfrredlog() {
 {/* <!-- Loading Wrap --> */}
 <div id="loading" class="loading-wrap" style={{display:'none'}}>
   <ul class="loading">
-    <li><img src="/images/loading40.gif"/></li>
+    <li><img src={Loading}/></li>
     <li>Loading...</li>
   </ul>
 </div>

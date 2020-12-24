@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Banking() {
+export default function Banking(props) {
     return (
         <React.Fragment>
             <div class="full-wrap" style={{height: 'calc(100% - 105px)'}}>
@@ -31,7 +31,7 @@ export default function Banking() {
 		<div class="function-wrap clearfix">
 			<dl class="banking-head float-L">
 				<dt>Your Balance</dt>
-				<dd id="yourBalance"><span>PTH</span>4,401.98</dd>
+				<dd id="yourBalance"><span>PTH</span>{props.balance}</dd>
 			</dl>
 			<ul class="input-list float-R" style={{display:'none'}}>
 				<li><label>Sort by</label></li>

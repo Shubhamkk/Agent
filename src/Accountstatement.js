@@ -1,10 +1,52 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
+import Cookies from 'universal-cookie';
+import axios from 'axios';
 import { Link} from "react-router-dom";
+import Loading from './images/loading40.gif'
+import Transparent from './images/transparent.gif'
+import Pagination from 'react-js-pagination';
 
-export default function Accountstatement() {
+const cookies = new Cookies();
+
+
+export default function Accountstatement(props) {
+
+    const [accountStatement, setaccountStatement ] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(6);
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = accountStatement.slice(indexOfFirstPost, indexOfLastPost);
+
+   
+
+    useEffect(() => {
+        var ssid = cookies.get('sid');
+        if(!ssid) return;
+        axios.post('http://65.0.111.203:3000/myAccountStatement',{
+            sid:ssid,
+           }).then(result => {
+            setaccountStatement(result.data)
+            console.log(result.data); 
+     }
+   ).catch(e => {
+     //setIsError(true);
+   });   
+    }, [])
+
+    // Get current posts
+  
+
+  // Change page
+  const handlePageChange = ( pageNumber ) => {
+      console.log( `active page is ${ pageNumber }` );
+      setCurrentPage( pageNumber )
+   };
+
+
+   
     return (
-        <React.Fragment>
-
+<React.Fragment>
 <div class="main_wrap">
 <div class="agent_path">
     <ul id="agentPath" class="agent_path-L">
@@ -19,16 +61,16 @@ export default function Accountstatement() {
         </li>
         
         <li id="path5" class="last_li">
-            <a href="javascript: void(0);">
+            <Link to="/agents">
                 <span class="lv_1">
-                    SS
+                    {props.level}
                 </span>
-                <strong>dublinhkd043</strong>
-            </a>
+                <strong>{props.user}</strong>
+            </Link>
         </li>
         
         <li id="path4" class="" style={{display:'none'}}>
-            <a href="javascript: void(0);">
+            <a href="!#">
                 <span class="lv_2">
                     SUP
                 </span>
@@ -84,7 +126,7 @@ export default function Accountstatement() {
     {/* <!-- Loading Wrap --> */}
     <div id="loading" class="loading-wrap" style={{display:'none'}}>
       <ul class="loading">
-        <li><img src="/images/loading40.gif"/></li>
+        <li><img src={Loading}/></li>
         <li>Loading...</li>
       </ul>
     </div>
@@ -123,40 +165,64 @@ export default function Accountstatement() {
                 <th width="16%">Remark</th>
                 <th width="">From/To</th>
             </tr>
-            </tbody><tbody id="content"><tr id="tempTr">
-                <td id="createDate" class="align-L">2020-09-15 19:58:31</td>
-                <td id="deposit"> 22,500.00</td>
-                <td id="withdraw">-</td>
-                <td id="balance"> 22,750.00</td>
-                <td id="remark"></td>
-                <td>
-                    <spen id="from">dublinhkd043</spen>
-                    <img class="fromto" src="/images/transparent.gif"/>
-                    <spen id="to">ptt2020</spen>
-                </td>
-            </tr><tr id="tempTr">
-                <td id="createDate" class="align-L">2020-09-15 18:42:50</td>
-                <td id="deposit"> 250.00</td>
-                <td id="withdraw">-</td>
-                <td id="balance"> 250.00</td>
-                <td id="remark"></td>
-                <td>
-                    <spen id="from">dublinhkd043</spen>
-                    <img class="fromto" src="/images/transparent.gif"/>
-                    <spen id="to">ptt2020</spen>
-                </td>
-            </tr></tbody>
+            </tbody>
+            <tbody id="content">
+            {/* <Posts posts={currentPosts} loading={loading} /> */}
+      
+    {currentPosts.map(function(item,index){
+      
+         var obj1;
+         var obj2;
+         if(item.amount >= 0){
+            obj1 = item.amount;
+            obj2 = '-';
+         }
+         if(item.amount < 0){
+            obj1 = '-';
+            obj2 = item.amount;
+         }
+          var obj3 = item.balance;
+     
+      return(
+        <tr id="tempTr" key = {index}>
+        <td id="createDate" class="align-L">{item.time}</td>
+        <td id="deposit"> {obj1}</td>
+        
+  <td id="withdraw">
+  <span class="red">{obj2}</span>
+      </td>
+        <td id="balance"> {obj3}</td>
+        <td id="remark"></td>
+        <td>
+            <spen id="from">{item.fromAgent}</spen>
+            <img class="fromto" src={Transparent}/>
+            <spen id="to">{item.toAgent}</spen>
+        </td>
+    </tr>
+  )})} 
+            </tbody>
         </table>
     <div>
         <ul style={{display:'none'}}>
-            <li id="prev"><a href="javascript:void(0);">Prev</a></li>
+            <li id="prev"><a >Prev</a></li>
             <li id="next"><a href="javascript:void(0);">Next</a></li>
             <li id="pageNumber"><a href="javascript:void(0);"></a></li>
             <li id="more"><a href="javascript:void(0);">...</a></li>
-            <input type="text" id="goToPageNumber" onkeyup="return PageHandler.validatePageNumber(this)" maxlength="6" size="4"/>
+            <input type="text" id="goToPageNumber"  maxlength="6" size="4"/>
             <li><a id="goPageBtn">GO</a></li>			
         </ul>
-        <ul id="pageNumberContent" class="pages"><li id="prev"><a href="javascript:void(0);">Prev</a></li><li id="pageNumber"><a href="javascript:void(0);">1</a></li><li id="next"><a href="javascript:void(0);">Next</a></li></ul>
+        <div className="pages">
+        <Pagination
+        prevPageText='prev'
+        pageRangeDisplayed={3}
+        activePage={currentPage}
+        nextPageText='next'
+        totalItemsCount={accountStatement.length}
+        onChange={handlePageChange}
+        itemsCountPerPage={postsPerPage}
+        hideFirstLastPages
+      />
+      </div>
     </div>
     </div>
     </div>

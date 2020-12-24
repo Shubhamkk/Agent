@@ -9,11 +9,11 @@ export default function Header(props) {
 	
    
 
-return (
-<React.Fragment>
-  <div class="top">
-   <div class="header">
-    <h1><a href="">SKYEXCHANGE</a></h1>
+    return (
+        <React.Fragment>
+            <div class="top">
+  <div class="header">
+    <h1><a href="/agents">SKYEXCHANGE</a></h1>
 
     <ul class="account-wrap">
 	  <li><span>{props.level}</span><strong>{props.user}</strong></li>
