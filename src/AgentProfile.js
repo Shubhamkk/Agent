@@ -8,6 +8,7 @@ const cookies = new Cookies();
 
 export default function AgentProfile(props) {
     const [view, setview] = useState(1);
+    const [Comm, setComm] = useState([])
 
     useEffect(()=>{
 
@@ -36,6 +37,18 @@ export default function AgentProfile(props) {
          ).catch(e => {
             //setIsError(true);
          });
+
+         var ssid = cookies.get('sid');
+         if(!ssid) return;
+         axios.post('http://65.0.111.203:3000/myComm',{
+             sid:ssid,
+            }).then(result => {
+             setComm(result.data)
+             console.log(result.data); 
+      }
+    ).catch(e => {
+      //setIsError(true);
+    });  
          
         
      },[]);
@@ -176,9 +189,9 @@ export default function AgentProfile(props) {
 					
 					<dt>Commission</dt>
                     <dd>
-                        <span id="commission">2.0%</span>
+                        <span id="commission">{Comm}.0%</span>
 						
-						<a href="#exposure" class="favor-set" >Edit</a>
+						
 						
                     </dd>
 

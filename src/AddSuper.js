@@ -8,12 +8,12 @@ return (
 <React.Fragment>
  <div class="total_all">
 
-    {false && <div class="search-wrap" id="userSearchUl" style={{}}>
-        <div>
-            <input class="search-input" type="text" name="userId" id="userId" placeholder="Find member..."/>
-            <button class="search-but" id="searchUserId">Search</button>
-        </div>
-    </div>}
+    {true &&<div class="search-wrap" id="userSearchUl" style={{}}>
+            <div>
+                <input class="search-input" type="text" name="userId" id="userId" placeholder="Find member..."/>
+                <button class="search-but" id="searchUserId">Search</button>
+            </div>
+        </div>}
         
 
 <div class="agent_path">
