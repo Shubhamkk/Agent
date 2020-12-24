@@ -15,8 +15,8 @@ export default function Changepassword(props) {
   const ChangePassword = (e) => {
     e.preventDefault();
  
-    var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$/;
-    var test = Newpassword.match(strongRegex);
+    //var strongRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$/;
+    //var test = Newpassword.match(strongRegex);
 
     if (Newpassword === "" || confirmpassword === "" || password === "") {
       toast.warn("Password can not be Blank!", {
@@ -30,17 +30,18 @@ export default function Changepassword(props) {
       toast.warn("Old password and new password is not same!", {
         position: toast.POSITION.TOP_CENTER,
       });
-    } else if (!test) {
+    /*} else if (!test) {
       toast.warn(
         "Password must have 8 to 15 alphanumeric without white space; cannot be the same as username/nickname; must contain at least 1 capital letter, small letter and numbers; and must not contain any special characters (!,@,#,etc..)",
         { position: toast.POSITION.TOP_CENTER }
-      );
-    } else {
+      );*/
+    } 
+    else {
         var ssid = cookies.get('sid');
         if(!ssid) return;
       axios
         .post("http://65.0.111.203:3000/changeOwnPassword", {
-            sid:ssid,
+          sid:ssid,
           currPass: password,
           newPass: Newpassword,
         })

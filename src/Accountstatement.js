@@ -13,8 +13,12 @@ export default function Accountstatement(props) {
 
     const [accountStatement, setaccountStatement ] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(1);
-    
+    const [postsPerPage] = useState(6);
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = accountStatement.slice(indexOfFirstPost, indexOfLastPost);
+
+   
 
     useEffect(() => {
         var ssid = cookies.get('sid');
@@ -31,9 +35,7 @@ export default function Accountstatement(props) {
     }, [])
 
     // Get current posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = accountStatement.slice(indexOfFirstPost, indexOfLastPost);
+  
 
   // Change page
   const handlePageChange = ( pageNumber ) => {
@@ -44,7 +46,7 @@ export default function Accountstatement(props) {
 
    
     return (
-        <React.Fragment>
+<React.Fragment>
 <div class="main_wrap">
 <div class="agent_path">
     <ul id="agentPath" class="agent_path-L">
@@ -167,8 +169,8 @@ export default function Accountstatement(props) {
             <tbody id="content">
             {/* <Posts posts={currentPosts} loading={loading} /> */}
       
-            {currentPosts.map(function(item,index){
-      console.log('rendering');
+    {currentPosts.map(function(item,index){
+      
          var obj1;
          var obj2;
          if(item.amount >= 0){
@@ -197,16 +199,16 @@ export default function Accountstatement(props) {
             <spen id="to">{item.toAgent}</spen>
         </td>
     </tr>
-)})} 
+  )})} 
             </tbody>
         </table>
     <div>
         <ul style={{display:'none'}}>
-            <li id="prev"><a href="javascript:void(0);">Prev</a></li>
+            <li id="prev"><a >Prev</a></li>
             <li id="next"><a href="javascript:void(0);">Next</a></li>
             <li id="pageNumber"><a href="javascript:void(0);"></a></li>
             <li id="more"><a href="javascript:void(0);">...</a></li>
-            <input type="text" id="goToPageNumber" onkeyup="return PageHandler.validatePageNumber(this)" maxlength="6" size="4"/>
+            <input type="text" id="goToPageNumber"  maxlength="6" size="4"/>
             <li><a id="goPageBtn">GO</a></li>			
         </ul>
         <div className="pages">

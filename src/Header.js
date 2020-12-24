@@ -7,8 +7,6 @@ const cookies = new Cookies();
 
 export default function Header(props) {
 	
-
-	
    
 
     return (
@@ -50,7 +48,7 @@ export default function Header(props) {
   <div class="menu-wrap">
     <div class="main_wrap">
       <ul class="menu">
-	      <li><Link to="/agents" id="menu_downline_list" className={`${(props.tabMenu===1 )? "select": "null"}`} >Downline List
+	      <li><Link to="/agents"  id="menu_downline_list" className={`${(props.tabMenu===1 )? "select": "null"}`} >Downline List
 	      </Link></li>
 	      
 	      <li>

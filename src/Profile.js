@@ -106,8 +106,8 @@ export default function Profile(props) {
             <li><Link to="/myAccount/activityLog" id="activityLog" >Activity Log</Link></li>
             
         </ul>
-    </div>
-</div>
+     </div>
+   </div>
 
 
     {/* <!-- Center Column --> */}

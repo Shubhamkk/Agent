@@ -129,7 +129,7 @@ export default function Combine(props) {
      else{
        setLoggedIn(false);
      }
-   },[]);
+   },[isLoggedIn]);
     
     
   useEffect(()=>{
