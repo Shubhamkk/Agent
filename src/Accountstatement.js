@@ -184,8 +184,8 @@ export default function Accountstatement(props) {
       return(
         <tr id="tempTr" key = {index}>
         <td id="createDate" class="align-L">{item.time}</td>
-        <td id="deposit"> {obj1}</td>
-        
+        <td id="deposit">
+        <span class="green">{obj1}</span></td>
   <td id="withdraw">
   <span class="red">{obj2}</span>
       </td>
