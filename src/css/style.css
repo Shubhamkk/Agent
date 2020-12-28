@@ -4631,10 +4631,10 @@ table .expand-close,table .expand-open{
     margin-bottom:0;
     font-weight:bold
 }
-.table-other{
+/* .table-other{
     margin-top:-10px;
     color:#3B5160
-}
+} */
 .head-balance{
     width:31.37255%;
     border-right:1px solid #d8d8d8;

@@ -39,7 +39,7 @@ export default function TotalBox() {
                    setAB(avail_balance);
                    setLE(le);
                 
-
+                        
 
                 }
    	

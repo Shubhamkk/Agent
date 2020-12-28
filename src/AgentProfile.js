@@ -2,21 +2,33 @@ import React, { useState,useEffect } from 'react'
 
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-
+import Transparent from './images/transparent.gif'
+import Pagination from 'react-js-pagination';
+import ChangeAgentPassword from './ChangeAgentPassword';
 const cookies = new Cookies();
 
 
 export default function AgentProfile(props) {
     const [view, setview] = useState(1);
-    const [Comm, setComm] = useState([])
+    const [firstname, setfirstname] = useState("");
+    const [lastname, setlastname] = useState("");
+    const [comm, setcomm] = useState("");
+    const [exp, setexp] = useState("");
+    const [balance, setbalance] = useState("")
+    const [ShowPassModel, setShowPassModel] = useState(false)
+    const [accountStatement, setaccountStatement ] = useState([])
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage] = useState(6);
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = accountStatement.slice(indexOfFirstPost, indexOfLastPost);
 
+  
     useEffect(()=>{
-
         //console.log(props.agentStack);
         var ssid = cookies.get('sid');
-        //axios.post('http://65.0.111.203:3000/agentAccountSummary',{
+        if(!ssid) return;
         axios.post('http://65.0.111.203:3000/agentAccountStatement',{
-        //axios.post('http://65.0.111.203:3000/changeAgentPassword',{
          sid:ssid,
          agentId:props.agentStack[props.agentStack.length-1].userid,
          agentPass:'1212',
@@ -24,12 +36,9 @@ export default function AgentProfile(props) {
 
         })
         .then(result => {
-           
-     
           if(result.status === 200){
-             
-            console.log(result.data);
-          
+            // console.log(result);
+            setaccountStatement(result.data)
            }
           
          }
@@ -38,62 +47,60 @@ export default function AgentProfile(props) {
             //setIsError(true);
          });
 
-         var ssid = cookies.get('sid');
-         if(!ssid) return;
-         axios.post('http://65.0.111.203:3000/myComm',{
-             sid:ssid,
-            }).then(result => {
-             setComm(result.data)
-             console.log(result.data); 
-      }
-    ).catch(e => {
-      //setIsError(true);
-    });  
-         
-        
+         axios.post("http://65.0.111.203:3000/agentAccountSummary", {
+            sid:ssid,
+            agentId:props.agentStack[props.agentStack.length-1].userid
+          })
+          .then((result) => {
+            //    console.log(result.data);
+              setfirstname(result.data.firstname);
+              setlastname(result.data.lastname);
+              setcomm(result.data.comm);
+              setbalance(result.data.balance);
+              setexp(result.data.exp)
+          })
+          .catch((e) => {
+            //setIsError(true);
+          });
+          
      },[]);
 
+     const handlepassmodel = ()=>{
+        setShowPassModel(true)
+      }
+       const handleClosepassmodel = ()=>{
+        setShowPassModel(false)
+      }
+
+      // Change page
+  const handlePageChange = ( pageNumber ) => {
+    // console.log( `active page is ${ pageNumber }` );
+    setCurrentPage( pageNumber )
+ };
 
     return (
   <React.Fragment>
-    
+     { ShowPassModel &&
+          <ChangeAgentPassword agentStack={props.agentStack} handleClosepassmodel={handleClosepassmodel}/>
+        }
     <div class="main_wrap">
-   
-    
      <div style={{top:'0px'}} class="col-left">
-
-    
       <div class="sub_path">
-
-       
         <ul class="menu-list">
-            
 	            <li class="class">Position</li>
 	            <li>
 	                <a onClick={()=>{setview(1);}} id="accountSummary"  className={`${view === 1 ? "select":""}`}>Account Summary</a>
 	            </li>
-	
 	            <li class="class">Performance</li>
-	            
-	            
 	            <li>
 	                <a onClick={()=>{setview(2);}}  id="transactionHistory" className={`${view === 2 ? "select":""}`} >Transaction&nbsp;History
 	                </a>
 	            </li>
-	            
-	            <li><a id="_activityLog" >Activity Log</a></li>
-
-            
+	            <li><a id="_activityLog" >Activity Log</a></li>   
            </ul>
        </div>
    </div>
-
-
-    
 {view === 1 && <div class="col-center report">
-        
-
-
 <div id="loading" class="loading-wrap" style={{display:'none'}}>
   <ul class="loading">
     <li><img src="/images/loading40.gif"/></li>
@@ -106,36 +113,25 @@ export default function AgentProfile(props) {
   <a class="btn-close">Close</a>
   <p></p>
 </div>
-
-
-
 		<h2>Account Summary</h2>
-
         <ul class="acc-info">
-			<li class="user">alamin786</li>
+			<li class="user">{props.agentStack[props.agentStack.length-1].userid}</li>
             <li class="status_all">
                 <strong id="status"></strong>
             </li>
-            
-            
-            
         </ul>
-
-        
         <table class="table01">
             <tbody><tr>
-        <th width="20%" class="align-L">Wallet</th>
-                
+        <th width="20%" class="align-L">Wallet</th>     
         <th width="25%">Available to Bet</th>
         <th width="">Funds available to withdraw</th>
         <th width="25%">Current exposure</th>
             </tr>
-
             <tr>
         <td class="align-L">Main wallet</td>
                 
-                <td id="availableToBet">1,681.42</td>
-                <td id="availableToWithDraw">1,681.42</td>
+                <td id="availableToBet">{balance}</td>
+                <td id="availableToWithDraw">{balance}</td>
                 <td id="currentExposure">0.00</td>
             </tr>
         </tbody></table>
@@ -146,10 +142,10 @@ export default function AgentProfile(props) {
 				<h3>About You</h3>
                 <dl>
 					<dt>First Name</dt>
-					<dd>Alamin</dd>
+					<dd>{firstname}</dd>
 
 					<dt>Last Name</dt>
-					<dd></dd>
+					<dd>{lastname}</dd>
 
 					<dt>Birthday</dt>
                     <dd></dd>
@@ -160,7 +156,7 @@ export default function AgentProfile(props) {
 					<dt>Password</dt>
                     <dd>********************************
 						
-						<a class="favor-set" >Edit</a>
+						<a class="favor-set" onClick={()=>handlepassmodel()}>Edit</a>
 						
                     </dd>
 
@@ -189,7 +185,7 @@ export default function AgentProfile(props) {
 					
 					<dt>Commission</dt>
                     <dd>
-                        <span id="commission">{Comm}.0%</span>
+                        <span id="commission">{comm}.0%</span>
 						
 						
 						
@@ -363,41 +359,38 @@ export default function AgentProfile(props) {
                     </tr>
         
                     </tbody>
-                    <tbody id="content"><tr id="tempTr">
-                        <td id="createDate" class="align-L">2020-12-14 14:47:55</td>
-                        <td id="deposit">-</td>
-                        <td id="withdraw"><span class="red">( 1.00)</span></td>
-                        <td id="balance"> 0.00</td>
-                        <td id="remark"></td>
-                        <td>
-                            <spen id="from">Senior Super</spen>
-                            <img class="fromto" src="/images/transparent.gif"/>
-                            <spen id="to">alamin786</spen>
-                        </td>
-                    </tr><tr id="tempTr">
-                        <td id="createDate" class="align-L">2020-09-15 20:39:05</td>
-                        <td id="deposit">-</td>
-                        <td id="withdraw"><span class="red">( 20.38)</span></td>
-                        <td id="balance"> 0.00</td>
-                        <td id="remark"></td>
-                        <td>
-                            <spen id="from">alamin786</spen>
-                            <img class="fromto" src="/images/transparent.gif"/>
-                            <spen id="to">star20</spen>
-                        </td>
-                    </tr>
-                    <tr id="tempTr">
-                        <td id="createDate" class="align-L">2020-07-30 14:16:35</td>
-                        <td id="deposit"> 1,000.00</td>
-                        <td id="withdraw">-</td>
-                        <td id="balance"> 1,000.00</td>
-                        <td id="remark"></td>
-                        <td>
-                            <spen id="from">alamin786</spen>
-                            <img class="fromto" src="/images/transparent.gif"/>
-                            <spen id="to">kabirx</spen>
-                        </td>
-                    </tr></tbody>
+                    <tbody id="content">
+        {currentPosts.map(function(item,index){
+      var obj1;
+      var obj2;
+      if(item.amount >= 0){
+         obj1 = item.amount;
+         obj2 = '-';
+      }
+      if(item.amount < 0){
+         obj1 = '-';
+         obj2 = item.amount;
+      }
+       var obj3 = item.balance;
+  
+   return(
+     <tr id="tempTr" key = {index}>
+     <td id="createDate" class="align-L">{item.time}</td>
+     <td id="deposit">
+     <span class="green">{obj1 >= 0 ?  Math.abs(obj1).toFixed(2)  : '-'}</span></td>
+<td id="withdraw">
+<span class="red">{obj2 < 0 ? '('+ Math.abs(obj2).toFixed(2) +')' : '-' }</span>
+   </td>
+   <td id="balance"> {parseFloat(obj3).toFixed(2) }</td>
+     <td id="remark"></td>
+     <td>
+         <spen id="from">{item.fromAgent}</spen>
+         <img class="fromto" src={Transparent}/>
+         <spen id="to">{item.toAgent}</spen>
+     </td>
+ </tr>
+)})} 
+                  </tbody>
                 </table>
         
                 
@@ -412,8 +405,20 @@ export default function AgentProfile(props) {
                 <li><a id="goPageBtn">GO</a></li>			
             </ul>
         
-            <ul id="pageNumberContent" class="pages"><li id="prev"><a class="disable" style={{pointerEvents:'none'}}>Prev</a></li><li id="pageNumber"><a  class="select" style={{pointerEvents:'none'}}>1</a></li><li id="pageNumber"><a >2</a></li><li id="next"><a >Next</a></li></ul>
+            {/* <ul id="pageNumberContent" class="pages"><li id="prev"><a class="disable" style={{pointerEvents:'none'}}>Prev</a></li><li id="pageNumber"><a  class="select" style={{pointerEvents:'none'}}>1</a></li><li id="pageNumber"><a >2</a></li><li id="next"><a >Next</a></li></ul> */}
          </div>
+         <div className="pages">
+        <Pagination
+        prevPageText='prev'
+        pageRangeDisplayed={3}
+        activePage={currentPage}
+        nextPageText='next'
+        totalItemsCount={accountStatement.length}
+        onChange={handlePageChange}
+        itemsCountPerPage={postsPerPage}
+        hideFirstLastPages
+      />
+      </div>
         
             </div> }
 

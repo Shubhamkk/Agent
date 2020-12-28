@@ -168,9 +168,7 @@ export default function Accountstatement(props) {
             </tbody>
             <tbody id="content">
             {/* <Posts posts={currentPosts} loading={loading} /> */}
-      
     {currentPosts.map(function(item,index){
-      
          var obj1;
          var obj2;
          if(item.amount >= 0){
@@ -187,11 +185,11 @@ export default function Accountstatement(props) {
         <tr id="tempTr" key = {index}>
         <td id="createDate" class="align-L">{item.time}</td>
         <td id="deposit">
-        <span class="green">{obj1}</span></td>
+        <span class="green">{obj1 >= 0 ?  Math.abs(obj1).toFixed(2)  : '-'}</span></td>
   <td id="withdraw">
-  <span class="red">{obj2}</span>
+  <span class="red">{obj2 < 0 ? '('+ Math.abs(obj2).toFixed(2) +')' : '-' }</span>
       </td>
-        <td id="balance"> {obj3}</td>
+        <td id="balance"> {parseFloat(obj3).toFixed(2) }</td>
         <td id="remark"></td>
         <td>
             <spen id="from">{item.fromAgent}</spen>

@@ -3,7 +3,7 @@ import Transparent from './images/transparent.gif'
 
 export default function AddSuper(props) {
   
-
+console.log(props.agentStack);
 return (
 <React.Fragment>
  <div class="total_all">

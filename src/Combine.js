@@ -151,7 +151,7 @@ export default function Combine(props) {
    return (
     <React.Fragment>
      {isLoggedIn === false && <LoginAgent checkShowLogin={checkShowLogin}/>}
-     {isLoggedIn && ShowPassModel === true && <Changepassword  handleClosepassmodel={handleClosepassmodel}/>}
+     {isLoggedIn && ShowPassModel  && <Changepassword  handleClosepassmodel={handleClosepassmodel}/>}
      {isLoggedIn && <Header tabMenu = {tabMenu} user = {user} balance = {balance} level = {level}/>}
      {isLoggedIn && tabMenu === 1 && <Agents/>}
      {isLoggedIn && tabMenu === 2 && <MyAccount user = {user}  level = {level}/>}

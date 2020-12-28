@@ -140,7 +140,7 @@ export default function Agents(props) {
             {view === 1 && <TotalBox/>}
             {view === 1 && <Dashboard view={view} changeView={changeView} changePro = {changePro} userLevel={userLevel} agentStack = {agentStack} pushAgent = {pushAgent} HandlePopup={HandlePopup} updatedStatus = {updatedStatus}/>}
             {view === 2 && <AgentProfile agentStack = {agentStack}/>}
-            {view === 3 && <ClientProfile pro = {pro}/> }
+            {view === 3 && <ClientProfile agentStack = {agentStack} pro = {pro}/> }
           </div> 
           <BankingModel/>
           <FixedFooter/> 

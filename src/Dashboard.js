@@ -232,6 +232,7 @@ export default function Dashboard(props) {
                     
                     setclient(arr.splice(0,10)); 
                     
+                    // console.log(result);
 
                   }
          

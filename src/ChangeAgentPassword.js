@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const cookies = new Cookies();
 
 toast.configure();
-export default function Changepassword(props) {
+export default function ChangeAgentPassword(props) {
   const [Newpassword, setNewpassword] = useState("");
   const [confirmpassword, setconfirmpassword] = useState("");
   const [password, setpassword] = useState("");
@@ -40,10 +40,11 @@ export default function Changepassword(props) {
         var ssid = cookies.get('sid');
         if(!ssid) return;
       axios
-        .post("http://65.0.111.203:3000/changeOwnPassword", {
+        .post("http://65.0.111.203:3000/changeAgentPassword", {
           sid:ssid,
-          currPass: password,
-          newPass: Newpassword,
+          agentId:props.agentStack[props.agentStack.length-1].userid,
+          myPass: password,
+          agentPass: Newpassword,
         })
         .then((result) => {
           if (result.status === 200) {
@@ -52,9 +53,7 @@ export default function Changepassword(props) {
             });
             window.location.reload();
           }
-         
-
-          if (result.status === 220) {
+          if (result.status === 206) {
             toast.warn("Your old password is wrong", {
               position: toast.POSITION.TOP_CENTER,
             });
@@ -66,9 +65,11 @@ export default function Changepassword(props) {
         });
     }
   };
+
+  console.log(props.agentStack[props.agentStack.length-1].userid);
   return (
     <React.Fragment>
-      <div id="changePasswordModal" class="pop_bg" style={{ display: "block" }}>
+      <div id="changePasswordModal" class="pop_bg" style={{ display: "block", top:0,right:0 }}>
         <div class="pop_box">
           <a class="close_pop" onClick={props.handleClosepassmodel}>
             close_pop
