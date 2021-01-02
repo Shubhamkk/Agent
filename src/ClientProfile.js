@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import moment from 'moment';
 import Datepic from './Datepicker';
 import Bethistory from './Bethistory';
+import Reactdatepicker from './Reactdatepicker';
 
 const cookies = new Cookies();
 window.pnlView = 1;
@@ -563,27 +564,18 @@ return (
                             <dl>
                                 <dt>PT</dt>
                                 <dd id="profile_is_allow_sportsbookTennis">ON</dd>
-
                                 <dt>Sportsbook</dt>
                                 <dd id="profile_company_sportsbook_tennis_PT">0%</dd>
                             </dl>
                         </dd>
                     </div>
-
-                    
-                    
                 </dl>
               </div>   
-            
         </div>
       </div>}
-
- 
      {view === 2 && 
      <Bethistory agentStack={props.agentStack}/>
      }
-
-
 
     {view === 3 && <div class="col-center report">
          <div id="loading" class="loading-wrap" style={{display:'none'}}>
@@ -632,7 +624,8 @@ return (
 		            </li>
 		        </div>        
     <li><label>Period</label></li>
-    <Datepic changeStartDate = {changeStartDate} changeEndDate = {changeEndDate} changeStartTime = {changeStartTime} changeEndTime = {changeEndTime}/>
+	<Reactdatepicker/>
+    {/* <Datepic changeStartDate = {changeStartDate} changeEndDate = {changeEndDate} changeStartTime = {changeStartTime} changeEndTime = {changeEndTime}/> */}
       
 		
         <li style={{display:'none'}}>(TimeZone:IST)</li>

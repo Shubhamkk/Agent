@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie';
 import Datepic from './Datepicker';
 import moment from 'moment';
 import {toast} from 'react-toastify'
+import Reactdatepicker from './Reactdatepicker';
 
 window.betHistoryView = 1;
 window.day = 3;
@@ -127,8 +128,9 @@ export default function Bethistory(props) {
             </li>
         </div> 
         <li><label>Period</label></li>
-        <Datepic changeStartDate = {changeStartDate} changeEndDate = {changeEndDate} changeStartTime = {changeStartTime} changeEndTime = {changeEndTime}/>
-        <li style={{display:'none'}}>(TimeZone:IST)</li>
+        {/* <Datepic changeStartDate = {changeStartDate} changeEndDate = {changeEndDate} changeStartTime = {changeStartTime} changeEndTime = {changeEndTime}/> */}
+        <Reactdatepicker changeStartDate = {changeStartDate} changeEndDate = {changeEndDate} changeStartTime = {changeStartTime} changeEndTime = {changeEndTime}/>
+		<li style={{display:'none'}}>(TimeZone:IST)</li>
     </ul>
     
     <ul class="input-list">

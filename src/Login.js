@@ -48,10 +48,6 @@ export default function Login(props) {
 		if(document.getElementById("popupcaptcha")){
 		  document.getElementById("popupcaptcha").appendChild(canv);
 		}
-		
-		
-		
-		
 	  }
 	  
 

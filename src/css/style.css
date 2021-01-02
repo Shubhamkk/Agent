@@ -19701,3 +19701,25 @@ body.sportsexchlive{
     color: #999;
     cursor: not-allowed;
 }
+
+
+
+.react-datepicker__header{
+    background-color:#3546b3!important;
+}
+
+.react-datepicker__current-month, .react-datepicker-time__header, .react-datepicker-year-header{
+    color:#fff!important;
+}
+
+.react-datepicker__day-name{
+    color: #fff!important;
+}
+
+.react-datepicker__navigation--previous{
+color: #fff!important;
+}
+
+.react-datepicker__navigation--next{
+    color: #fff!important;
+    }

@@ -1,4 +1,5 @@
 import React from 'react'
+import Reactdatepicker from './Reactdatepicker'
 
 export default function Market() {
     return (
@@ -117,13 +118,14 @@ export default function Market() {
      <li></li>
      
     <li><label>Period</label></li>
-    <li>
+    <Reactdatepicker/>
+    {/* <li>
         <input id="startDate" class="cal-input" type="text" placeholder="YYYY-MM-DD" min="2020-10-04" max="2020-12-06" onclick="calendarObj.show(event,'startDate');"/>
         <input id="startTime" disabled="" class="time-input disable" type="text" placeholder="09:00" maxlength="5"/>
         to
         <input id="endDate" class="cal-input" type="text" placeholder="YYYY-MM-DD" min="2020-10-04" max="2020-12-06" onclick="calendarObj.show(event,'endDate');"/>
         <input id="endTime" disabled="" class="time-input disable" type="text" placeholder="08:59" maxlength="5"/>
-    </li>
+    </li> */}
     <li style={{display:'none'}}>(TimeZone:IST)</li>
 </ul>
 

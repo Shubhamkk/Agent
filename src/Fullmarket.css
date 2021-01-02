@@ -774,7 +774,7 @@
   }
   
   .report-sprite,
-  .cal-input,
+  
   .upcome dd,
   .game-scores .scores-time li,
   .filter-list .filter-content span,
@@ -2256,7 +2256,7 @@
   .cal-input {
     width: 130px;
     cursor: pointer;
-    background-position: 100% 37px
+    background-position: 100% -24px
   }
   
   .time-input {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Transparent from './images/transparent.gif'
 import { Link} from "react-router-dom";
 import Cookies from 'universal-cookie';
@@ -7,7 +7,13 @@ const cookies = new Cookies();
 
 export default function Header(props) {
 	
-   
+	
+	const [loading, setloading] = useState(false);
+
+	const handlerefresh = ()=>{
+		setloading(true); 
+    setTimeout(()=>{setloading(false);},1000);
+	}
 
     return (
         <React.Fragment>
@@ -21,13 +27,16 @@ export default function Header(props) {
       <li class="main-wallet no-multi">
       	{/* <!-- 加open打開--> */}
       	<a href="#multi-balance_pop" class="a-wallet">
+			  {loading === false &&
       		<ul>
       			<li>
       				<span>Main</span>
       				<strong id="mainBalance">PTH {parseFloat(props.balance).toFixed(2)}</strong>
       			</li>
       		</ul>
-      		<p class="loading-bar" id="menuRefreshLoading" style={{display: 'none'}}>
+			  }
+			{loading === true &&
+      		<p class="loading-bar" id="menuRefreshLoading">
 				<span></span>
 				<span></span>
 				<span></span>
@@ -36,10 +45,10 @@ export default function Header(props) {
 				<span></span>
 				<span></span>
 				<span></span>
-			</p>
+			</p>}
       	</a>
 
-		<a id="topRefresh" class="a-refresh" style={{cursor:'pointer'}}><img src={Transparent}/></a>
+		<a id="topRefresh" class="a-refresh" onClick={()=>{handlerefresh()}} style={{cursor:'pointer'}}><img src={Transparent}/></a>
       </li>
     </ul>
   </div>
